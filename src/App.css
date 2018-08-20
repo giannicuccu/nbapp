@@ -1,28 +1,39 @@
-.App {
-  text-align: center;
+.App{
+width: 100%;
+display: flex;
+flex-wrap: nowrap;
+background:#000;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+#appSidebar{
+  width: 18.75rem;
+  height: calc(100vh );
+  background:#000;
+  flex: 0 0 auto;
+  transition: all .4s ease-out; 
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+#appSidebar.hidden{ 
+  transform: translate3d(-18.75rem,0,0);
+  margin-left:-18.75rem
 }
 
-.App-title {
-  font-size: 1.5em;
+#searchInput{ 
+  width: 50%; 
+  transition: width .5s ease-in;}
+
+.mapContainer{
+flex: 1 1 auto;
+height: calc( 100vh - 3.125rem );
 }
 
-.App-intro {
-  font-size: large;
+.map{
+  width: 100%; 
+  height:100%;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.tophead{
+  height: 3.125rem; 
+  background-color: #000
 }
+
