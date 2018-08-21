@@ -37,3 +37,29 @@ height: calc( 100vh - 3.125rem );
   background-color: #000
 }
 
+
+.locations-grid{ color:#fff; height: 18.75rem; overflow-y: scroll}
+.locations-grid li{border-top: 1px solid #ccc; color:#fff; padding: 1.25rem; border-bottom: 1px solid #ccc  }
+.locations-grid li a{color:#fff; text-decoration: none;  }
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+

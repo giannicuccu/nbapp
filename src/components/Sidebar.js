@@ -7,25 +7,40 @@ import '../App.css';
 
 
 
-export default class LeftSidebar extends Component {
-    state = { visible: false }
-  
-    handleButtonClick = () => this.setState({ visible: !this.state.visible })
-  
-    handleSidebarHide = () => this.setState({ visible: false })
+export default class Sidebar extends Component {
+
+
+    // componentWillReceiveProps(){
+    //   console.log('RECEIVING PROPS'+this.props.sidebarVisible)
+    // }
   
     render() {
-      const { visible } = this.state
+      const { sidebarVisible, locations, sidebarLocationClick } = this.props
   
       return (
        
-        <div>
-        
-        
-        SIDEBAR
-        
-        
-          </div>
+        <div className={ sidebarVisible ? 'sidebar':'sidebar hidden' } id="appSidebar">
+        <div className="tophead">
+         <h3>HEWADER </h3>
+        </div>
+        COMPONENT SIDEBAR
+        <input id='searchInput' type='text' placeholder='Enter location'/>
+
+         <ul className="locations-grid">
+                    {
+                        locations.map( location => (
+                                <li key={ location.id }>
+                                    <div className="place">                                        
+                                        <div className="place-name">
+                                          <h3><a href="#" onClick={ () => sidebarLocationClick(location) }>{ location.title }</a></h3>  
+                                          </div>
+                                    </div>
+                                </li>
+                            )
+                        )
+                    }
+                </ul>
+        </div>
       
         
       )
