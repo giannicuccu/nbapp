@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from '../logo.svg';
 import '../App.css';
+import SortBy from 'sort-by';
+import EscapeRegExp from 'escape-string-regexp';
 
 
 
@@ -9,13 +11,42 @@ import '../App.css';
 
 export default class Sidebar extends Component {
 
+    state = {
+        query: ''
+    }
 
-    // componentWillReceiveProps(){
-    //   console.log('RECEIVING PROPS'+this.props.sidebarVisible)
-    // }
+    updateQuery = (query) => {
+        this.setState({query: query.trim()})
+    }
+
+    clearQuery = () => {
+        this.setState({query: ''})
+    }
+
+
+
+    componentWillReceiveProps(){
+      //console.log('RECEIVING PROPS'+this.props.sidebarVisible)
+    }
   
     render() {
-      const { sidebarVisible, locations, sidebarLocationClick } = this.props
+      const { sidebarVisible, locations } = this.props
+      const {query} = this.state;
+
+
+
+      let showingLocations
+
+      if (query){
+          const match = new RegExp(EscapeRegExp(query),'i');
+          showingLocations = locations.filter((location)=>match.test(location.title))
+      }else{
+          showingLocations = locations;
+      }
+      //showingLocations.sort(SortBy('location.id'));
+
+
+
   
       return (
        
@@ -24,15 +55,19 @@ export default class Sidebar extends Component {
          <h3>HEWADER </h3>
         </div>
         COMPONENT SIDEBAR
-        <input id='searchInput' type='text' placeholder='Enter location'/>
-
+        <input id='searchInput' type='text' placeholder='Enter location' 
+        value={ query }
+        onChange ={(event) => this.updateQuery(event.target.value)}
+        
+        />
+        <p>{ query }</p>
          <ul className="locations-grid">
                     {
-                        locations.map( location => (
+                        showingLocations.map( location => (
                                 <li key={ location.id }>
                                     <div className="place">                                        
                                         <div className="place-name">
-                                          <h3><a href="#" onClick={ () => sidebarLocationClick(location) }>{ location.title }</a></h3>  
+                                          <h3><a href="#" onClick={()=>this.props.sidebarLocationClick(location) }>{ location.title }</a></h3>  
                                           </div>
                                     </div>
                                 </li>

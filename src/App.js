@@ -20,6 +20,7 @@ center:{lat: 40.0420784, lng: 9.0921147},
 activeLocation: {},
 sidebarVisible: true,
 locations: [
+  {id:0,title: 'Villasimius - Campulongu', location: {lat: 39.127868, lng: 9.506965},thumbnail:''},
   {id:1,title: 'Villasimius - Porto giunco', location: {lat: 39.11293148, lng: 9.51855074},thumbnail:''},
   {id:2,title: 'Villasimius - Simius', location: {lat: 39.12807541, lng: 9.53031797},thumbnail:''},
   {id:3,title: 'Villasimius - Punta Molentis', location: {lat: 39.13340402, lng: 9.55628425},thumbnail:''},
@@ -132,14 +133,19 @@ locations: [
     }
 
     sidebarLocationClick = (location) => {
-        console.log(location)
-        //this.setState({activeLocation: location})
+        //console.log(location)
+        
+         this.setState({activeLocation: location})
+         //console.log(this.markers)
+        // console.log(this.state)
+        
+        //console.log(this.state.activeLocation1)
       }
   
   render() {
     
-  const {locations, center, sidebarVisible} = this.state
-  const sidebarLocationClick = this.sidebarLocationClick
+  const {center, activeLocation, sidebarVisible, locations } = this.state
+  //const sidebarLocationClick = this.sidebarLocationClick
      
    
 
@@ -153,17 +159,19 @@ locations: [
             sidebar
             <input id='searchInput' type='text' placeholder='Enter location'/>
             </div> */}
-            <Sidebar sidebarVisible={sidebarVisible} locations={locations} sidebarLocationClick={sidebarLocationClick}/>
+            <Sidebar sidebarVisible={sidebarVisible} locations={locations} sidebarLocationClick={this.sidebarLocationClick}/>
             <section className='mapContainer'> 
             <div className="tophead">
               <nav><button onClick={this.toggleSidebar}> Toggle menu</button></nav>
             </div>
             
-              <Map locations={locations}  center={center} />
+              <Map locations={locations}  center={center} activeLocation={activeLocation}/> 
+              
               {/* <div ref='map' className={'map'}>
                 pippo
               </div> */}
             </section>
+            <section className={'locationPanel'}> location data here</section>
              
 
             
