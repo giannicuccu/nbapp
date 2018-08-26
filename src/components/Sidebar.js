@@ -66,32 +66,7 @@ export default class Sidebar extends Component {
   
       return (
        
-        <div className={ sidebarVisible ? 'sidebar':'sidebar hidden' } id="appSidebar">
-        <div className="tophead">
-         <h3>HEWADER </h3>
-        </div>
-        COMPONENT SIDEBAR
-        <input id='searchInput' type='text' placeholder='Enter location' 
-        value={ query }
-        onChange ={(event) => this.updateQuery(event.target.value)}
-        
-        />
-        <p>{ query }</p>
-         <ul className="locations-grid">
-                    {
-                        showingLocations.map( location => (
-                                <li key={ location.id }>
-                                    <div className="place">                                        
-                                        <div className="place-name">
-                                          <h3><a href="#location.id" onClick={()=>this.props.sidebarLocationClick(location) }>{ location.title }</a></h3>  
-                                          </div>
-                                    </div>
-                                </li>
-                            )
-                        )
-                    }
-                </ul>
-        </div>
+      true
       
         
       )
