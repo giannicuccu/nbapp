@@ -103,6 +103,7 @@ updateQuery = (query) => {
   }
 
   this.setState({showingLocations: showingLocations})
+  this.setState({activeLocation: {}})
 
 }
 

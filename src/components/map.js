@@ -196,7 +196,8 @@ class Map extends React.Component {
 
       }
       
-        componentDidMount(){   
+        componentDidMount(){  
+          console.log('DID MOUNT') 
            //console.log(this.props)
         //  let { parentState } = this.props
          
@@ -206,8 +207,13 @@ class Map extends React.Component {
             zoom: 8,
             center: {lat: 39.11601812, lng: 9.51918845}
           });
+         // console.log(mymap)
+         // mymap.setZoom(15)
 
           this.setState({map: mymap})
+
+          // console.log(mymap)
+          // console.log(this.state.map)
 
           
 
@@ -225,14 +231,21 @@ class Map extends React.Component {
 
 
 render(){
+  console.log('RENDER')
 
   //debugger
   const { map } = this.state
   const { activeLocation } = this.props
-  console.log(this.props)
+
+  console.log(map)
+   if ( map.zoom ) 
+   {map.setZoom(9)}
+
  
 
   let Infowindow = new window.google.maps.InfoWindow();
+  let bounds = new window.google.maps.LatLngBounds();
+  
   let  populateInfoWindow = (marker, largeInfowindow) => {
       
       
@@ -272,21 +285,35 @@ render(){
             id: id
           });
 
+          bounds.extend(marker.position);
+
           this.markers.push(marker);
           
 
           marker.addListener('click', function() {
                     console.log(this.title)
-                    populateInfoWindow(this, Infowindow);
-            //        //populateInfoWindowZ(this, largeInfowindow);
+                    populateInfoWindow(this, Infowindow);          //        //populateInfoWindowZ(this, largeInfowindow);
                 
             
-                  });
-        activeLocation.location && this.state.map.panTo(activeLocation.location)
+         });
+
+        activeLocation.location && map.panTo(activeLocation.location)
+        
+        populateInfoWindow(this.markers[activeLocation.id],Infowindow)
+
         }
         //this.setState({markers: tempMarkers})
 
+        console.log(map)
+        console.log(bounds)
+
+        if ( map.zoom && map.zoom != 8 && this.markers.length > 1) 
+            {map.fitBounds(bounds);}
         
+
+        //this.mymap.setZoom(15);
+
+
      // console.log(appMap)
   //       //externalfunct()
   //       //console.log(markers[nextProps.activeLocation.id])
