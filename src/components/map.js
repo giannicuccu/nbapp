@@ -48,7 +48,7 @@ class Map extends React.Component {
         activeLoaction:{}
       }
 
-      markers = []
+      markers = new Set()
 
        
 
@@ -205,7 +205,7 @@ class Map extends React.Component {
 
            let mymap = new window.google.maps.Map(this.refs.map, {
             zoom: 8,
-            center: {lat: 39.11601812, lng: 9.51918845}
+            center:{lat: 40.0420784, lng: 9.0921147},
           });
          // console.log(mymap)
          // mymap.setZoom(15)
@@ -238,8 +238,8 @@ render(){
   const { activeLocation } = this.props
 
   console.log(map)
-   if ( map.zoom ) 
-   {map.setZoom(9)}
+  //  if ( map.zoom ) 
+  //  {map.setZoom(9)}
 
  
 
@@ -260,10 +260,13 @@ render(){
               largeInfowindow.addListener('closeclick', () =>{
                 largeInfowindow.marker = null;
               });
+
+              map.panTo(marker.position)
           }
         }
   
-  this.markers.map(marker => marker.setMap(null))
+  [...this.markers].map(marker => marker.setMap(null))
+  this.markers = new Set()
   
   //console.log('rendering map')
 
@@ -287,7 +290,8 @@ render(){
 
           bounds.extend(marker.position);
 
-          this.markers.push(marker);
+          
+          this.markers.add(marker);
           
 
           marker.addListener('click', function() {
@@ -297,17 +301,17 @@ render(){
             
          });
 
-        activeLocation.location && map.panTo(activeLocation.location)
-        
-        populateInfoWindow(this.markers[activeLocation.id],Infowindow)
+        //activeLocation.location && map.panTo(activeLocation.location)
+        let currentmarkref = [...this.markers].find(el => el.id === activeLocation.id)
+        populateInfoWindow(currentmarkref,Infowindow)
 
         }
         //this.setState({markers: tempMarkers})
 
-        console.log(map)
-        console.log(bounds)
+        // console.log(map)
+         console.log([...this.markers])
 
-        if ( map.zoom && map.zoom != 8 && this.markers.length > 1) 
+        if ( map.zoom  && map.zoom >= 2  && [...this.markers].length > 1 ) 
             {map.fitBounds(bounds);}
         
 
