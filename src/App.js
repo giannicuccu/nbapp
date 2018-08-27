@@ -149,6 +149,10 @@ updateFilteredLocations = (showingLocations) => {
         console.log('FUCKKKKKKK')
         this.setState({map: mymapp})
       }  
+
+
+
+
   render() {
     console.log('render App')
     
@@ -191,7 +195,7 @@ updateFilteredLocations = (showingLocations) => {
                                     <div className="place">                                        
                                         <div className="place-name">
                                           <h3>
-                                            <a href="# `${ location.title }`" onClick={()=>this.setState({activeLocation: location})}>{ location.title }</a>
+                                            <a href="# { location.title }" onClick={()=>this.setState({activeLocation: location})}>{ location.title }</a>
                                             </h3>  
                                           </div>
                                     </div>
@@ -211,7 +215,10 @@ updateFilteredLocations = (showingLocations) => {
               <nav><button onClick={this.toggleSidebar}> Toggle menu</button></nav>
             </div>            
             {/* <Map locations={locations}  center={center} activeLocation={activeLocation} visibleLocations={visibleLocations} />   */}
-            <Map assignMapToApp={this.assignMapToApp}/>
+            <Map 
+              assignMapToApp={this.assignMapToApp} 
+              showingLocations={this.state.showingLocations} 
+              activeLocation={this.state.activeLocation} />
             
             {/* <Azz  locations={locations} visibleLocations={visibleLocations}/>  */}
               

@@ -38,11 +38,22 @@ import '../App.css';
 
 
 
-class Map extends React.PureComponent {
+class Map extends React.Component {
+
+ 
+
+
+     state = {
+        map: {},        
+        activeLoaction:{}
+      }
+
+      markers = []
+
+       
+
 
   
-
-
 
   
 
@@ -52,14 +63,15 @@ class Map extends React.PureComponent {
       
   //   }
 
-  // componentWillReceiveProps = () => {
+  componentWillReceiveProps = () => {
       
-  //     console.log('1 -------- will received props   -------------')
-  //     console.log(this.props)
-  //     console.log('1 -------- will received props   -------------')
+     // console.log('1 -------- will received props   -------------')
+      //console.log(this.props.activeLocation)
+      //console.log('1 -------- will received props   -------------')
+      this.props.activeLocation && this.props.activeLocation !== '' && console.log(this.props.activeLocation.title)
+      this.setState({activeLoaction: this.props.activeLoaction})
       
-      
-  //   } 
+    } 
 
 
   
@@ -115,87 +127,95 @@ class Map extends React.PureComponent {
 
 
 
-  //   renderMarkers = ( vis=[] ) => {
+    // renderMarkers = () => {
       
       
 
-  //     this.markers.map(marker => marker.setMap(null))
-  //     this.markers = []
+    //   // this.markers.map(marker => marker.setMap(null))
+    //   // this.markers = []
 
-  //     // console.log(this.locations)
-  //      //console.log(vis)
-  //     largeInfowindow = this.largeInfowindow;
-  //     //  // var bounds = new window.google.maps.LatLngBounds();
-  //    // locations = this.locations
-  //     // let marker;
+    //   console.log(this.props)
+    //    //console.log(vis)
+    //   //largeInfowindow = this.largeInfowindow;
+    //   //  // var bounds = new window.google.maps.LatLngBounds();
+    //  // locations = this.locations
+    //   // let marker;
        
-  //     //   //var map = this.map
-  //     //   //var bounds
+    //   //   //var map = this.map
+    //   //   //var bounds
       
-  //     //   // var populateInfoWindow = (marker, largeInfowindow) => {
+    //   //   // var populateInfoWindow = (marker, largeInfowindow) => {
       
-  //     //   // //   console.log(marker)
-  //     //   // //   console.log(largeInfowindow)
-  //     //   //   //Check to make sure the infowindow is not already opened on this marker.
-  //     //   //   if (largeInfowindow.marker !== marker) {
-  //     //   //     largeInfowindow.marker = marker;
-  //     //   //     largeInfowindow.setContent('<div>' + marker.title + '</div>');
-  //     //   //     largeInfowindow.open(this.map, marker);
-  //     //   //     // Make sure the marker property is cleared if the infowindow is closed.
-  //     //   //     largeInfowindow.addListener('closeclick', () =>{
-  //     //   //       largeInfowindow.marker = null;
-  //     //   //     });
-  //     //   //   }
-  //     //   // }
-  //     // this.props.visibleLocations
-  //     //   // The following group uses the location array to create an array of markers on initialize.
-  //       for (let i = 0; i < vis.length; i++) {
-  //         // Get the position from the location array.
-  //         let position = vis[i].location;
-  //         let title = vis[i].title;
-  //         let id = vis[i].id;
-  //         // Create a marker per location, and put into markers array.
-  //          let marker = new window.google.maps.Marker({
-  //           map: this.map,
-  //           position: position,
-  //           title: title,
-  //           animation: window.google.maps.Animation.DROP,
-  //           id: id
-  //         });
-  //     //     // Push the marker to our array of markers.
-  //          this.markers.push(marker);
-  //     //    // console.log(marker)
-  //     //     // Create an onclick event to open an infowindow at each marker.
-  //          marker.addListener('click', function() {
-  //            //console.log(this)
-  //            populateInfoWindowZ(this, largeInfowindow);
+    //   //   // //   console.log(marker)
+    //   //   // //   console.log(largeInfowindow)
+    //   //   //   //Check to make sure the infowindow is not already opened on this marker.
+    //   //   //   if (largeInfowindow.marker !== marker) {
+    //   //   //     largeInfowindow.marker = marker;
+    //   //   //     largeInfowindow.setContent('<div>' + marker.title + '</div>');
+    //   //   //     largeInfowindow.open(this.map, marker);
+    //   //   //     // Make sure the marker property is cleared if the infowindow is closed.
+    //   //   //     largeInfowindow.addListener('closeclick', () =>{
+    //   //   //       largeInfowindow.marker = null;
+    //   //   //     });
+    //   //   //   }
+    //   //   // }
+    //    let vis = this.props.showingLocations
+    //   // //   // The following group uses the location array to create an array of markers on initialize.
+    //     for (let i = 0; i < vis.length; i++) {
+    //       //console.log('MARKING')
+    //       // Get the position from the location array.
+    //       let position = vis[i].location;
+    //       let title = vis[i].title;
+    //       let id = vis[i].id;
+    //       // Create a marker per location, and put into markers array.
+    //        let marker = new window.google.maps.Marker({
+    //         map: this.map,
+    //         position: position,
+    //         title: title,
+    //         animation: window.google.maps.Animation.DROP,
+    //         id: id
+    //       });
+    //   // //     // Push the marker to our array of markers.
+    //   //      this.markers.push(marker);
+    //   // //    // console.log(marker)
+    //   // //     // Create an onclick event to open an infowindow at each marker.
+    //   //      marker.addListener('click', function() {
+    //   //        console.log(this)
+    //   //        //populateInfoWindowZ(this, largeInfowindow);
           
       
-  //          });
-  //     //     bounds.extend(markers[i].position);
-  //        }
-  //     //   // Extend the boundaries of the map for each marker
-  //     //   //map.fitBounds(bounds);
-  //     //   console.log(markers)
-  //     }
-        
+    //   //      });
+    //   // //     bounds.extend(markers[i].position);
+    //       }
+    //   //   // Extend the boundaries of the map for each marker
+    //   //   //map.fitBounds(bounds);
+    //   //   console.log(markers)
+    //   }
+      componentWillMount(){
+      
+
+      }
       
         componentDidMount(){   
-           console.log(this.props.assignMapToApp)
+           //console.log(this.props)
         //  let { parentState } = this.props
          
         //  this.props.parentState.ciccio = 'fuck'
 
-          window.map = new window.google.maps.Map(this.refs.map, {
+           let mymap = new window.google.maps.Map(this.refs.map, {
             zoom: 8,
             center: {lat: 39.11601812, lng: 9.51918845}
           });
 
-          this.props.assignMapToApp(window.map)
+          this.setState({map: mymap})
+
+          
+
+          //this.props.assignMapToApp(window.map)
       
           //var largeInfowindow = new window.google.maps.InfoWindow();
       
-          //this.renderMarkers(this.props.locations)
+          //this.renderMarkers()
           
       
          
@@ -205,11 +225,82 @@ class Map extends React.PureComponent {
 
 
 render(){
-  console.log('RENDERING MAP')
+
+  //debugger
+  const { map } = this.state
+  const { activeLocation } = this.props
+  console.log(this.props)
  
-    return (    
-    <div ref='map' className={'map'}></div>
+
+  let Infowindow = new window.google.maps.InfoWindow();
+  let  populateInfoWindow = (marker, largeInfowindow) => {
+      
+      
+        //   console.log(marker)
+        //   console.log(largeInfowindow)
+          //Check to make sure the infowindow is not already opened on this marker.
+          if (largeInfowindow.marker !== marker) {
+              largeInfowindow.marker = marker;
+              largeInfowindow.setContent('<div>' + marker.title + '</div>');
+              largeInfowindow.open(map, marker);
+              // Make sure the marker property is cleared if the infowindow is closed.
+              largeInfowindow.addListener('closeclick', () =>{
+                largeInfowindow.marker = null;
+              });
+          }
+        }
+  
+  this.markers.map(marker => marker.setMap(null))
+  
+  //console.log('rendering map')
+
+  let vis = this.props.showingLocations
+  let tempMarkers = []
+      // //   // The following group uses the location array to create an array of markers on initialize.
+        for (let i = 0; i < vis.length; i++) {
+          //console.log('MARKING')
+          // Get the position from the location array.
+          let position = vis[i].location;
+          let title = vis[i].title;
+          let id = vis[i].id;
+          // Create a marker per location, and put into markers array.
+           let marker = new window.google.maps.Marker({
+            map: map,
+            position: position,
+            title: title,
+            //animation: window.google.maps.Animation.DROP,
+            id: id
+          });
+
+          this.markers.push(marker);
+          
+
+          marker.addListener('click', function() {
+                    console.log(this.title)
+                    populateInfoWindow(this, Infowindow);
+            //        //populateInfoWindowZ(this, largeInfowindow);
+                
+            
+                  });
+        activeLocation.location && this.state.map.panTo(activeLocation.location)
+        }
+        //this.setState({markers: tempMarkers})
+
         
+     // console.log(appMap)
+  //       //externalfunct()
+  //       //console.log(markers[nextProps.activeLocation.id])
+  //       this.populateInfoWindow(this.markers[nextProps.activeLocation.id],this.Infowindow)
+
+
+
+
+
+ // console.log('RENDERING MAP')
+ 
+    return (
+    <div ref='map' className={'map'}></div>
+
 )
 }
 
