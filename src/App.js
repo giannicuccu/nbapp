@@ -103,7 +103,7 @@ class App extends Component {
         
         <input id='searchInput' type='text' placeholder='Enter location' 
         value={ query }
-        onChange ={(event) => this.updateQuery(event.target.value)}        
+        onChange ={(event) => this.updateQuery(event.target.value)}
         />
                 
          <ul className="locations-grid">
@@ -113,7 +113,7 @@ class App extends Component {
                               <div className="place">
                                   <div className="place-name">
                                     <h3>
-                                      <a onClick={()=>this.sidebarLocationClick(location)}>{ location.title }</a>
+                                      <a href={`#${location.wikiSlug}`} onClick={()=>this.sidebarLocationClick(location)}>{ location.title }</a>
                                     </h3>
                                     </div>
                               </div>
@@ -126,7 +126,7 @@ class App extends Component {
 
         <section className='mapContainer'> 
         <div className="tophead">
-          <nav><button onClick={this.toggleSidebar}> Toggle Sidebar </button></nav>
+          <nav><button onClick={this.toggleSidebar} aria-label='Toggle location list'> &#9776; </button></nav>
         </div>
 
         <Map 
