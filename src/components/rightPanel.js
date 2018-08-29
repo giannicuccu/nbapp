@@ -25,7 +25,7 @@ class RightPanel extends React.Component {
 
     render(){
         
-        const { locationPanelVisible, activeLocation } = this.props
+        const { locationPanelVisible, activeLocation, setOpenRightPanel } = this.props
         //const { location } = this.state
 
         this.fetchLocationData(activeLocation.wikiSlug)  
@@ -44,6 +44,7 @@ class RightPanel extends React.Component {
     
         return (
             <section className={locationPanelVisible ? 'locationPanel':'locationPanel hidden'}> 
+                <button onClick={()=>{setOpenRightPanel(false)}}>Close Panel</button>
                 <h3>{activeLocation.title}</h3>
                 <p>Wikipedia Info:</p>
                 <img src={thumb}/> 
