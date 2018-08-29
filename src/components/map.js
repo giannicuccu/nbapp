@@ -50,6 +50,10 @@ class Map extends React.Component {
 
       markers = new Set()
 
+      animateMarkers = true
+
+      openPanel = (activeLocation) => { alert (activeLocation) }
+
        
 
 
@@ -67,8 +71,8 @@ class Map extends React.Component {
       
      // console.log('1 -------- will received props   -------------')
       //console.log(this.props.activeLocation)
-      //console.log('1 -------- will received props   -------------')
-      this.props.activeLocation && this.props.activeLocation !== '' && console.log(this.props.activeLocation.title)
+      //console.log('1 MAP will received props   -------------')
+      this.props.activeLocation && this.props.activeLocation !== '' && (console.log(this.props.activeLocation.title || 'no active location'))
       this.setState({activeLoaction: this.props.activeLoaction})
       
     } 
@@ -192,12 +196,12 @@ class Map extends React.Component {
     //   //   console.log(markers)
     //   }
       componentWillMount(){
-      
+        //console.log('MAP WILL MOUNT') 
 
       }
       
         componentDidMount(){  
-          console.log('DID MOUNT') 
+          //console.log('MAP DID MOUNT') 
            //console.log(this.props)
         //  let { parentState } = this.props
          
@@ -211,6 +215,7 @@ class Map extends React.Component {
          // mymap.setZoom(15)
 
           this.setState({map: mymap})
+          //this.animateMarkers = false
 
           // console.log(mymap)
           // console.log(this.state.map)
@@ -231,38 +236,65 @@ class Map extends React.Component {
 
 
 render(){
-  console.log('RENDER')
+  //console.log('MAP RENDER')
 
   //debugger
   const { map } = this.state
-  const { activeLocation } = this.props
-
-  console.log(map)
-  //  if ( map.zoom ) 
-  //  {map.setZoom(9)}
-
- 
-
+  const { activeLocation, sidebarLocationClick, setOpenRightPanel } = this.props
   let Infowindow = new window.google.maps.InfoWindow();
   let bounds = new window.google.maps.LatLngBounds();
   
+  //console.log(map)
+  //  if ( map.zoom ) 
+  //  {map.setZoom(9)}
+
   let  populateInfoWindow = (marker, largeInfowindow) => {
       
-      
-        //   console.log(marker)
+          //sidebarLocationClick()
+           //console.log(marker)
         //   console.log(largeInfowindow)
           //Check to make sure the infowindow is not already opened on this marker.
           if (largeInfowindow.marker !== marker) {
               largeInfowindow.marker = marker;
-              largeInfowindow.setContent('<div>' + marker.title + '</div>');
+
+              //largeInfowindow.setContent('<div>' + marker.title + '<br/><a onClick="zzzfunc(activeLocation)">Show '+ activeLocation.title + ' info</a>' + '</div>');
+              
+              let content = document.createElement('div'),
+                  button;
+              content.innerHTML = '  ' + marker.title + '<br/>';
+              button = content.appendChild(document.createElement('input'));
+              button.type = 'button';
+              button.value = 'Show info...'
+              button.addEventListener('click', ()=>{
+                //this.openPanel(marker.title)
+                //console.log(marker.location)
+                //let location = 
+                this.props.setOpenRightPanel(true, marker.location)
+              }
+              )
+              
+              largeInfowindow.setContent(content);
+
+              
+              
               largeInfowindow.open(map, marker);
               // Make sure the marker property is cleared if the infowindow is closed.
               largeInfowindow.addListener('closeclick', () =>{
                 largeInfowindow.marker = null;
+                sidebarLocationClick({})
+                this.props.setOpenRightPanel(false);
               });
 
               map.panTo(marker.position)
           }
+
+        //     window.google.maps.event.addDomListener(button, 'click', function () {
+        //     //openPanel(activeLocation);
+        //     //(activeLocation) => { console.log('SESAMO')
+
+        //     alert('PIPPO')
+        // })
+
         }
   
   [...this.markers].map(marker => marker.setMap(null))
@@ -271,7 +303,7 @@ render(){
   //console.log('rendering map')
 
   let vis = this.props.showingLocations
-  let tempMarkers = []
+  //let tempMarkers = []
       // //   // The following group uses the location array to create an array of markers on initialize.
         for (let i = 0; i < vis.length; i++) {
           //console.log('MARKING')
@@ -284,35 +316,41 @@ render(){
             map: map,
             position: position,
             title: title,
-            //animation: window.google.maps.Animation.DROP,
-            id: id
+            //animation: this.animateMarkers ? window.google.maps.Animation.DROP : null,
+            id: id,
+            location: vis[i]
           });
 
-          bounds.extend(marker.position);
-
-          
+          bounds.extend(marker.position);          
           this.markers.add(marker);
           
 
           marker.addListener('click', function() {
-                    console.log(this.title)
-                    populateInfoWindow(this, Infowindow);          //        //populateInfoWindowZ(this, largeInfowindow);
-                
+                    //console.log(this.title)
+                   // console.log(this.location)
+                    
+                    populateInfoWindow(this, Infowindow);
+                    sidebarLocationClick(this.location)
+                    setOpenRightPanel(false)
             
          });
 
         //activeLocation.location && map.panTo(activeLocation.location)
         let currentmarkref = [...this.markers].find(el => el.id === activeLocation.id)
+        
+        //populateInfoWindow(activeLocation)
         populateInfoWindow(currentmarkref,Infowindow)
 
         }
         //this.setState({markers: tempMarkers})
 
         // console.log(map)
-         console.log([...this.markers])
+         //console.log([...this.markers])
 
         if ( map.zoom  && map.zoom >= 2  && [...this.markers].length > 1 ) 
             {map.fitBounds(bounds);}
+
+            
         
 
         //this.mymap.setZoom(15);

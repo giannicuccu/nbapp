@@ -1,3 +1,5 @@
+body{ overflow: hidden;}
+
 .App{
 width: 100%;
 display: flex;
@@ -63,3 +65,17 @@ height: calc( 100vh - 3.125rem );
   background: #555; 
 }
 
+
+
+.locationPanel{
+  background: red;
+  width: 200px;
+ 
+  
+}
+
+.locationPanel.hidden{ 
+ position: absolute;
+ right:-200px;
+ width: 200px;
+}
