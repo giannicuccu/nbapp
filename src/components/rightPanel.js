@@ -22,8 +22,6 @@ class RightPanel extends React.Component {
     
     fetchLocationData = ( wikiSlug ) => {
 
-    
-
     const headers = {
         'Accept': 'application/json',
         }
@@ -56,8 +54,8 @@ class RightPanel extends React.Component {
                 <button onClick={()=>{setOpenRightPanel(false)}}>&#x2716;</button>
                 <h3>{activeLocation.title}</h3>
                 <p>Wikipedia Info:</p>
-                <img src={thumb} alt={activeLocation.title}/> 
-                <p>{this.locData.extract}</p>
+                <img src={thumb} alt={activeLocation.title || 'Image Unavailable'}/> 
+                <p>{this.locData.extract || 'Text Unavailable'}</p>
             </section>
 
         )
