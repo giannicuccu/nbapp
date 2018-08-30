@@ -84,7 +84,17 @@ render(){
   
       // //   // The following group uses te location array to create an array of markers on initialize.
         for (let i = 0; i < vis.length; i++) {
+           console.log(vis[i].id)
+           console.log(activeLocation.id)
           
+          let animation = null
+          if(activeLocation.id === vis[i].id )
+            {console.log(vis[i].title)
+              animation = window.google.maps.Animation.BOUNCE
+            }else{
+              animation = null
+            }
+
           let position = vis[i].location;
           let title = vis[i].title;
           let id = vis[i].id;
@@ -94,7 +104,7 @@ render(){
             position: position,
             title: title,
             //TODO: fix animation for active markers
-            //animation: this.animateMarkers ? window.google.maps.Animation.DROP : null,
+            animation: animation,
             id: id,
             location: vis[i]
           });
