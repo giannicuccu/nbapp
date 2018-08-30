@@ -29,6 +29,34 @@ background:#000;
   transition: width .5s ease-in;
 }
 
+
+@media  screen  and (max-device-width: 600px) {
+
+  #appSidebar{
+    width: 12.75rem;
+    height: calc(100vh );
+    background:#000;
+    flex: 0 0 auto;
+    transition: all .4s ease-out; 
+  }
+  
+  #appSidebar.hidden{ 
+    transform: translate3d(-12.75rem,0,0);
+    margin-left:-12.75rem
+  }
+  
+  #searchInput{ 
+    width: calc(100% - 15px);
+    margin-bottom: 5px; 
+    margin-left:5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transition: width .5s ease-in;
+  }
+
+
+}
+
 .mapContainer{
 flex: 1 1 auto;
 height: calc( 100vh - 3.125rem );
@@ -92,19 +120,20 @@ height: calc( 100vh - 3.125rem );
 }
 
 
-.locationPanel img{
+.locationPanel img {
  max-width: 100%;
  margin-bottom: 20px; 
 }
 
-.locationPanel p{
-  padding: 10px;
- }
- .locationPanel h3{
+.locationPanel p {
   padding: 10px;
  }
 
- .locationPanel button{
+ .locationPanel h3 {
+  padding: 10px;
+ }
+
+ .locationPanel button {
   border: none;
   font-weight: 800;
   color:#fff;

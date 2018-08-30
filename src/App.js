@@ -101,15 +101,15 @@ class App extends Component {
          <h3>Sidebar</h3>
         </div>
         
-        <input id='searchInput' type='text' placeholder='Enter location' 
+        <input aria-controls="location-list" id='searchInput' type='text' placeholder='Enter location' 
         value={ query }
         onChange ={(event) => this.updateQuery(event.target.value)}
         />
                 
-         <ul className="locations-grid">
+         <ul className="locations-grid" id="location-list" aria-live="polite" tabindex="0" aria-atomic="true">
               {
                   this.state.showingLocations.map( location => (
-                          <li key={ location.id }>
+                          <li key={ location.id } tabindex="0">
                               <div className="place">
                                   <div className="place-name">
                                     <h3>

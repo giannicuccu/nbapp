@@ -51,7 +51,7 @@ class RightPanel extends React.Component {
 
         return (
             <section className={locationPanelVisible ? 'locationPanel':'locationPanel hidden'}> 
-                <button onClick={()=>{setOpenRightPanel(false)}}>&#x2716;</button>
+                <button aria-label='Close location detail panel' onClick={()=>{setOpenRightPanel(false)}}>&#x2716;</button>
                 <h3>{activeLocation.title}</h3>
                 <p>Wikipedia Info:</p>
                 <img src={thumb} alt={activeLocation.title || 'Image Unavailable'}/> 

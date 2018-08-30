@@ -129,12 +129,12 @@ render(){
         // console.log(map)
          //console.log([...this.markers])
 
-        if ( map.zoom  && map.zoom >= 2  && [...this.markers].length > 1 ) 
+        if ( map.zoom  && map.zoom >= 2  && [...this.markers].length > 1 && window.innerWidth > 600) 
             {map.fitBounds(bounds);}
 
  
     return (
-    <div aria-role="application" ref='map' className={'map'}></div>
+    <div role="application" ref='map' className={'map'}></div>
 
 )
 }
