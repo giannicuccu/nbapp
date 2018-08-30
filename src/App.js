@@ -12,7 +12,7 @@ class App extends Component {
     super(props);
 
     // binding functions 
-    this.updateFilteredLocations = this.updateFilteredLocations.bind(this);
+    // UNUSED this.updateFilteredLocations = this.updateFilteredLocations.bind(this);
     this.toggleSidebar = this.toggleSidebar.bind(this);
     this.sidebarLocationClick = this.sidebarLocationClick.bind(this);
     this.updateQuery = this.updateQuery.bind(this);
@@ -45,7 +45,7 @@ class App extends Component {
   }
 
 
- /** filter locations using input string
+ /** filters locations using input string and sync the UI
   * @param query the input string
   */
   updateQuery = (query) => {
@@ -61,34 +61,37 @@ class App extends Component {
       showingLocations =  this.state.locations;
 
     }
-
+    
+    // Reset active and showing locations after a search
     this.setState({showingLocations: showingLocations})
     this.setState({activeLocation: {}})
-
-  }
-
-
-  updateFilteredLocations = (showingLocations) => {
-    this.setState({visibleLocations: showingLocations})
-  }
-
-
-  toggleSidebar = () => {
-    this.state.sidebarVisible ? this.setState({sidebarVisible: false}): this.setState({sidebarVisible: true})
-  }
-
-
-  sidebarLocationClick = (location) => {
-    this.setState({activeLocation: location})
+    
+    // Hide right panel
     this.setState({rightPanelVisible: false})
 
   }
 
-  setOpenRightPanel = (arg) => {
-    this.setState({rightPanelVisible: arg})
-    
-    }
+  // UNUSED
+  // updateFilteredLocations = (showingLocations) => {
+  //   this.setState({visibleLocations: showingLocations})
+  // }
 
+  // Toggle the sidebar
+  toggleSidebar = () => {
+    this.state.sidebarVisible ? this.setState({sidebarVisible: false}): this.setState({sidebarVisible: true})
+  }
+
+  // Save active location and reset right panel status 
+  // when user clicks on location link in sidebar list
+  sidebarLocationClick = (location) => {
+    this.setState({activeLocation: location})
+    this.setState({rightPanelVisible: false}) // hide right panel
+  }
+
+  // Set right panel status
+  setOpenRightPanel = (arg) => this.setState({rightPanelVisible: arg});
+  
+  // Get right panel status
   getOpenRightPanel = () =>  this.state.rightPanelVisible ? true : false ;
 
 

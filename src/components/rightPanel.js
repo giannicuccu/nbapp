@@ -31,7 +31,7 @@ class RightPanel extends React.Component {
         // 
         //TODO: BUG fix multiple requests
         // fetch data from wikipedia
-        this.fetchLocationData(activeLocation.wikiSlug)
+        activeLocation && this.fetchLocationData(activeLocation.wikiSlug)
 
         
 
@@ -42,7 +42,7 @@ class RightPanel extends React.Component {
         let ariaAttrs = !locationPanelVisible ? {"aria-hidden":"true"}: false
 
         // render empty right panel while visually hidden to improve accessibility and preserve panel animation
-        if( locationPanelVisible ){
+        if( locationPanelVisible /* && activeLocation */){
             return (
                 <section className={locationPanelVisible ? 'locationPanel':'locationPanel hidden'} { ...ariaAttrs } > 
                     <button aria-label='Close location detail panel' onClick={()=>{setOpenRightPanel(false)}}>&#x2716;</button>
