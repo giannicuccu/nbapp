@@ -110,22 +110,16 @@ class App extends Component {
          <h3>Sidebar</h3>
         </div>
         
-        <input aria-controls="location-list" id='searchInput' type='text' placeholder='Enter location' 
+        <input aria-label="Filter locations" aria-controls="location-list" id='searchInput' type='text' placeholder='Enter location' 
         value={ query }
         onChange ={(event) => this.updateQuery(event.target.value)}
         />
                 
-         <ul className="locations-grid" id="location-list" aria-live="polite" tabIndex="0" aria-atomic="true">
+         <ul className="locations-grid" id="location-list" aria-label="Locations List" aria-live="polite" tabIndex="0" aria-atomic="true">
               {
                   this.state.showingLocations.map( location => (
-                          <li key={ location.id } tabIndex="0">
-                              <div className="place">
-                                  <div className="place-name">
-                                    <h3>
-                                      <a href={`#${location.wikiSlug}`} onClick={()=>this.sidebarLocationClick(location)}>{ location.title }</a>
-                                    </h3>
-                                    </div>
-                              </div>
+                          <li tabIndex="0" key={ location.id } >                              
+                             <a  href={`#${location.wikiSlug}`} onClick={()=>this.sidebarLocationClick(location)}>{ location.title }</a>                                    
                           </li>
                       )
                   )

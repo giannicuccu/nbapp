@@ -51,8 +51,10 @@ class RightPanel extends React.Component {
         let thumb
         this.locData.thumbnail && this.locData.thumbnail.source? thumb = this.locData.thumbnail.source : thumb = '';
 
+        let ariaAttrs = !locationPanelVisible ? {"aria-hidden":"true","hidden":"hidden"}: false
+
         return (
-            <section className={locationPanelVisible ? 'locationPanel':'locationPanel hidden'}> 
+            <section className={locationPanelVisible ? 'locationPanel':'locationPanel hidden'} { ...ariaAttrs } > 
                 <button aria-label='Close location detail panel' onClick={()=>{setOpenRightPanel(false)}}>&#x2716;</button>
                 <h3>{activeLocation.title}</h3>
                 <p>Wikipedia Info:</p>
