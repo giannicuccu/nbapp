@@ -25,7 +25,7 @@ class App extends Component {
     activeLocation: {},
      locations: [
       {id:0,title: 'Rome - Colosseo', location: {lat: 41.890239, lng: 12.492203},thumbnail:'', wikiSlug:'Colosseum'},
-      {id:1,title: 'Rome - Terme di Caracalla', location: {lat: 41.879278, lng: 12.493139},thumbnail:'',wikiSlug:'Caracalla_baths'},
+      {id:1,title: 'Rome - Terme di Caracalla', location: {lat: 41.879278, lng: 12.493139},thumbnail:'',wikiSlug:'Baths_of_Caracalla'},
       {id:2,title: 'Rome - Circo Massimo', location: {lat: 41.882316, lng: 12.488428},thumbnail:'',wikiSlug:'Circus_Maximus'},
       {id:3,title: 'Rome - Pantheon', location: {lat: 41.898624, lng: 12.476786},thumbnail:'',wikiSlug:'Pantheon,_Rome'},
       {id:4,title: 'Rome - Fori Imperiali', location: {lat: 41.893510, lng: 12.486107},thumbnail:'',wikiSlug:'Roman_Forum'},

@@ -38,11 +38,13 @@ class RightPanel extends React.Component {
         const { locationPanelVisible, activeLocation, setOpenRightPanel } = this.props
         //const { location } = this.state
 
+        // 
+        //TODO: BUG fix multiple requests
         this.fetchLocationData(activeLocation.wikiSlug)
 
         //console.log('RENDERING LOCATIONPANEL')
 
-        // console.log(activeLocation)
+        
         // activeLocation.location? console.log(activeLocation.location.venueId) : console.log('no venue ID'); 
         //console.log(activeLocation.location || 'no venue ID')
 
