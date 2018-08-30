@@ -11,18 +11,19 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    // binding functions 
     this.updateFilteredLocations = this.updateFilteredLocations.bind(this);
     this.toggleSidebar = this.toggleSidebar.bind(this);
     this.sidebarLocationClick = this.sidebarLocationClick.bind(this);
     this.updateQuery = this.updateQuery.bind(this);
     
+    // setting the state
     this.state = {
     sidebarVisible: true,
     rightPanelVisible: false,
-    center:{lat: 40.0420784, lng: 9.0921147},
     query: '',
-    showingLocations: [],
-    activeLocation: {},
+    showingLocations: [], // filtered locations
+    activeLocation: {},   // selected location
      locations: [
       {id:0,title: 'Rome - Colosseo', location: {lat: 41.890239, lng: 12.492203},thumbnail:'', wikiSlug:'Colosseum'},
       {id:1,title: 'Rome - Terme di Caracalla', location: {lat: 41.879278, lng: 12.493139},thumbnail:'',wikiSlug:'Baths_of_Caracalla'},
@@ -30,29 +31,23 @@ class App extends Component {
       {id:3,title: 'Rome - Pantheon', location: {lat: 41.898624, lng: 12.476786},thumbnail:'',wikiSlug:'Pantheon,_Rome'},
       {id:4,title: 'Rome - Fori Imperiali', location: {lat: 41.893510, lng: 12.486107},thumbnail:'',wikiSlug:'Roman_Forum'},
       {id:5,title: 'Rome - Domus Aurea', location: {lat: 41.891681, lng: 12.495844},thumbnail:'',wikiSlug:'Domus_Aurea'},
-  
-    ]
+     ]
     
     } 
   }
 
+  // initially show all locations from locations array
+  componentDidMount = () =>{  
 
-  componentDidMount = () =>{
-
-  
     let showingLocations = this.state.locations.map(v => v)
     this.setState({showingLocations})
-
-   
-    
-
-  
-
 
   }
 
 
- 
+ /** filter locations using input string
+  * @param query the input string
+  */
   updateQuery = (query) => {
 
     this.setState({query: query})
@@ -99,7 +94,7 @@ class App extends Component {
 
   render() {
   //console.log('APP RENDER')
-  const {center, activeLocation, sidebarVisible, locations, visibleLocations, query, locationPanelVisible, sidebarLocationClick } = this.state
+  const { activeLocation, sidebarVisible, locations, visibleLocations, query, locationPanelVisible, sidebarLocationClick } = this.state
    
 
     return (

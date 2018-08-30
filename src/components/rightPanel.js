@@ -2,24 +2,14 @@ import React, { Component } from 'react';
 
 class RightPanel extends React.Component {
 
-    locData = {}
-
-
-    resetLocationData = () => {this.locData = {}}
-
-    // fetchLocationData = ( wikiSlug ) => {
-
-    // const headers = {
-    //     'Accept': 'application/json',
-    //     }
-
-    // return fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${wikiSlug}`, { headers })
-    //     .then(res => res.json())
-    //     .then(data => this.locData = data)
-    // }
-
-
     
+    locData = {}  // holds location data fetched via API
+
+
+    /** 
+     *  fetch from wikipedia and save in locData variable
+     * @param wikiSlug the wikipedia slug for selected resource
+     */
     fetchLocationData = ( wikiSlug ) => {
 
     const headers = {
@@ -34,39 +24,44 @@ class RightPanel extends React.Component {
 
 
 
-    render(){    
+    render(){
+
         const { locationPanelVisible, activeLocation, setOpenRightPanel } = this.props
-        //const { location } = this.state
 
         // 
         //TODO: BUG fix multiple requests
+        // fetch data from wikipedia
         this.fetchLocationData(activeLocation.wikiSlug)
 
-        //console.log('RENDERING LOCATIONPANEL')
-
         
-        // activeLocation.location? console.log(activeLocation.location.venueId) : console.log('no venue ID'); 
-        //console.log(activeLocation.location || 'no venue ID')
 
         let thumb
         this.locData.thumbnail && this.locData.thumbnail.source? thumb = this.locData.thumbnail.source : thumb = '';
+       
+        // https://stackoverflow.com/questions/31163693/how-to-conditionally-add-attributes-to-react-components/31164357
+        let ariaAttrs = !locationPanelVisible ? {"aria-hidden":"true"}: false
 
-        let ariaAttrs = !locationPanelVisible ? {"aria-hidden":"true","hidden":"hidden"}: false
+        // render empty right panel while visually hidden to improve accessibility and preserve panel animation
+        if( locationPanelVisible ){
+            return (
+                <section className={locationPanelVisible ? 'locationPanel':'locationPanel hidden'} { ...ariaAttrs } > 
+                    <button aria-label='Close location detail panel' onClick={()=>{setOpenRightPanel(false)}}>&#x2716;</button>
+                    <h3>{activeLocation.title}</h3>
+                    <p>Wikipedia Info:</p>
+                    <img src={thumb} alt={activeLocation.title || 'Image Unavailable'}/> 
+                    <p>{this.locData.extract || 'Text Unavailable'}</p>
+                </section>    
+            )
 
-        return (
-            <section className={locationPanelVisible ? 'locationPanel':'locationPanel hidden'} { ...ariaAttrs } > 
-                <button aria-label='Close location detail panel' onClick={()=>{setOpenRightPanel(false)}}>&#x2716;</button>
-                <h3>{activeLocation.title}</h3>
-                <p>Wikipedia Info:</p>
-                <img src={thumb} alt={activeLocation.title || 'Image Unavailable'}/> 
-                <p>{this.locData.extract || 'Text Unavailable'}</p>
-            </section>
-
-        )
+        }else{
+            return(
+                <section className={'locationPanel hidden'} >
+                </section>
+            )
+        }
     }
 
-
-    }
+}
 
 
 export default RightPanel
