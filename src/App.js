@@ -115,10 +115,10 @@ class App extends Component {
         onChange ={(event) => this.updateQuery(event.target.value)}
         />
                 
-         <ul className="locations-grid" id="location-list" aria-live="polite" tabindex="0" aria-atomic="true">
+         <ul className="locations-grid" id="location-list" aria-live="polite" tabIndex="0" aria-atomic="true">
               {
                   this.state.showingLocations.map( location => (
-                          <li key={ location.id } tabindex="0">
+                          <li key={ location.id } tabIndex="0">
                               <div className="place">
                                   <div className="place-name">
                                     <h3>
