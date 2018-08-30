@@ -87,6 +87,8 @@ class App extends Component {
     
     }
 
+  getOpenRightPanel = () =>  this.state.rightPanelVisible ? true : false ;
+
 
   render() {
   //console.log('APP RENDER')
@@ -134,6 +136,7 @@ class App extends Component {
           showingLocations={this.state.showingLocations} 
           activeLocation={this.state.activeLocation} 
           setOpenRightPanel={this.setOpenRightPanel}
+          getOpenRightPanel={this.getOpenRightPanel}
           />
         </section>
 
