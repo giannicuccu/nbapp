@@ -39,8 +39,15 @@ class App extends Component {
 
   componentDidMount = () =>{
 
+  
     let showingLocations = this.state.locations.map(v => v)
     this.setState({showingLocations})
+
+   
+    
+
+  
+
 
   }
 
