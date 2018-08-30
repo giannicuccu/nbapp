@@ -20,43 +20,26 @@ class Map extends React.Component {
 
  
   componentDidMount(){  
+    
+    let ref = window.document.getElementsByTagName("script")[0];
+    let script = window.document.createElement("script");
+    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.31&key=AIzaSyA40zamRM0fp_m0JQKUWQPpyz0X_gXiFUA&callback=initMap';
+    script.async = true;
+    ref.parentNode.insertBefore(script, ref);
+    script.onerror = ()=>{ alert('GOOGLE MAP NETWORK LOADING ERROR') }
+    
+    let initMap = () => {
 
-    console.log('DID MOUNT')
-
-    let  loadJS = function(src) {
-      var ref = window.document.getElementsByTagName("script")[0];
-      var script = window.document.createElement("script");
-      script.src = src;
-      script.async = true;
-      ref.parentNode.insertBefore(script, ref);
-  }
-
-  debugger
-  let initMap = () => {
-
-    alert('INNER INITMAP')
-   
       let mymap = new window.google.maps.Map(this.refs.map, {
-      zoom: 8,
-      center:{lat: 40.0420784, lng: 9.0921147},
-    });
-    this.setState({map: mymap})
+        zoom: 8,
+        center:{lat: 40.0420784, lng: 9.0921147},
+      });
+
+      this.setState({map: mymap})
     }
+    
     window.initMap = initMap;
-    //loadJS('https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap')
-    loadJS('https://maps.googleapis.com/maps/api/js?v=3.31&key=AIzaSyA40zamRM0fp_m0JQKUWQPpyz0X_gXiFUA&callback=initMap')
 
-
-    
-  
-
-    // var ref = window.document.getElementsByTagName("script")[0];
-    //   var script = window.document.createElement("script");
-    //   script.src = 'https://maps.googleapis.com/maps/api/js?v=3.31&key=AIzaSyA40zamRM0fp_m0JQKUWQPpyz0X_gXiFUA';
-    //   script.async = true;
-    //   ref.parentNode.insertBefore(script, ref);
-    
-  
   }
 
 
@@ -64,18 +47,12 @@ class Map extends React.Component {
 render(){
     
   if (window.google) {
-
-    console.log('MAP RENDER')
-  
-  
+ 
     const { map } = this.state
     const { activeLocation, sidebarLocationClick, setOpenRightPanel, getOpenRightPanel } = this.props
     let Infowindow = new window.google.maps.InfoWindow();
     let bounds = new window.google.maps.LatLngBounds();
-    
-    //console.log(map)
-    //  if ( map.zoom ) 
-    //  {map.setZoom(9)}
+ 
 
     let  populateInfoWindow = (marker, largeInfowindow) => {
         
@@ -83,7 +60,6 @@ render(){
             if (largeInfowindow.marker !== marker && !getOpenRightPanel() ) {
                 largeInfowindow.marker = marker;
 
-                              
                 let content = document.createElement('div'),
                     button;
 
@@ -95,8 +71,6 @@ render(){
                 button.addEventListener('click', ()=>{
                 this.props.setOpenRightPanel(true, marker.location)
 
-                // largeInfowindow.map = null
-                // debugger
                   }
                 )
                 
@@ -115,7 +89,6 @@ render(){
           }
     
     [...this.markers].map(marker => marker.setMap(null))
-
     this.markers = new Set()
     
 
@@ -168,9 +141,10 @@ render(){
     }
  
     return (
-    <div role="application" ref='map' className={'map'}></div>
-
-)
+    <div role="application" ref='map' className={'map'}>
+            <h3 className={'loaderror'}> loading map... </h3> 
+    </div>
+  )
 
 
 }

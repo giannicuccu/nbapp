@@ -150,3 +150,11 @@ height: calc( 100vh - 3.125rem );
  transform: translate3d(400px,0,0);
  width: 250px;
 }
+
+
+.loaderror{
+  font-size:20px;
+  padding: 50px;
+  text-align: center;
+  color:#fff
+}
