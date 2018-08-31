@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class RightPanel extends React.Component {
+class RightPanel extends Component {
 
     
     locData = {}  // holds location data fetched via API

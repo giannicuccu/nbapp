@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-class Map extends React.Component {
+class Map extends Component {
 
 
      state = {

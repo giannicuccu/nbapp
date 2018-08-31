@@ -97,7 +97,9 @@ class App extends Component {
 
   render() {
   //console.log('APP RENDER')
-  const { activeLocation, sidebarVisible, locations, visibleLocations, query, locationPanelVisible, sidebarLocationClick } = this.state
+  //const { activeLocation, sidebarVisible, locations, visibleLocations, query, locationPanelVisible, sidebarLocationClick } = this.state
+  
+  const { sidebarVisible , query  } = this.state
    
 
     return (
@@ -127,7 +129,7 @@ class App extends Component {
 
         <section className='mapContainer'> 
         <div className="tophead">
-          <nav><button onClick={this.toggleSidebar} aria-label='Toggle location list'> &#9776; </button></nav>
+          <button onClick={this.toggleSidebar} aria-label='Toggle location list'> &#9776; </button>
         </div>
 
         <Map 
