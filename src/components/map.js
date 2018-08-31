@@ -22,13 +22,13 @@ class Map extends Component {
   componentDidMount(){
     
     // ASYNC load google maps 
-    // 
+    // Thanks to Udacity reviewer and https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
     let ref = window.document.getElementsByTagName("script")[0];
     let script = window.document.createElement("script");
     script.src = 'https://maps.googleapis.com/maps/api/js?v=3.31&key=AIzaSyA40zamRM0fp_m0JQKUWQPpyz0X_gXiFUA&callback=initMap';
     script.async = true;
     ref.parentNode.insertBefore(script, ref);
-    script.onerror = ()=>{ alert('GOOGLE MAP NETWORK LOADING ERROR') } // HAndle google maps loading error
+    script.onerror = ()=>{ alert('GOOGLE MAP NETWORK LOADING ERROR') } // Handle google maps loading error - Thanks to Udacity reviewer and mozilla reference
     
     // callback init function called by google maps script
     let initMap = () => {
@@ -50,6 +50,7 @@ class Map extends Component {
 
 render(){
   // do nothing until google.maps  global object becomes available 
+
   if (window.google) {
  
     const { map } = this.state
@@ -59,10 +60,10 @@ render(){
 
 
     // function to populate and handle info windows popups
-    let  populateInfoWindow = (marker, largeInfowindow) => {
+    let  populateInfoWindow = (marker, infoWindow) => {
                  
-            if (largeInfowindow.marker !== marker && !getOpenRightPanel() ) {
-                largeInfowindow.marker = marker;
+            if (infoWindow.marker !== marker && !getOpenRightPanel() ) {
+                infoWindow.marker = marker;
 
                 let content = document.createElement('div'),
                     button;
@@ -79,12 +80,12 @@ render(){
                   }
                 )
                 
-                largeInfowindow.setContent(content);
-                largeInfowindow.open(map, marker);
+                infoWindow.setContent(content);
+                infoWindow.open(map, marker);
                 
                 // create close listeners
-                largeInfowindow.addListener('closeclick', () =>{
-                  largeInfowindow.marker = null;
+                infoWindow.addListener('closeclick', () =>{
+                  infoWindow.marker = null;
                   sidebarLocationClick({})
                   this.props.setOpenRightPanel(false);
                 });
@@ -151,14 +152,9 @@ render(){
     <div role="application" ref='map' className={'map'}>
             <h3 className={'loaderror'}> loading map... </h3> 
     </div>
-  )
+    )
 
-
-}
-
-
-
-
+  }
 
 }
 
